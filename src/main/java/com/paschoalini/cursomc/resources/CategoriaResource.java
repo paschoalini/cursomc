@@ -13,7 +13,10 @@ import com.paschoalini.cursomc.model.Categoria;
 @RequestMapping("/categorias")
 public class CategoriaResource {
 	@GetMapping
-	public String listar() {
-		return "REST executando corretamente!";
+	public List<Categoria> listar() {
+		List<Categoria> categorias = new ArrayList<>();
+		categorias.add(new Categoria(1L, "Informática"));
+		categorias.add(new Categoria(2L, "Escritório"));
+		return categorias;
 	}
 }
