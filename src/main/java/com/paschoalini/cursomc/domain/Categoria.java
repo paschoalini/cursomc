@@ -1,4 +1,4 @@
-package com.paschoalini.cursomc.model;
+package com.paschoalini.cursomc.domain;
 
 import java.io.Serializable;
 
