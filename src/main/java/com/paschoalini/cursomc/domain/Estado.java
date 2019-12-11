@@ -24,6 +24,13 @@ public class Estado implements Serializable {
 	public Estado() {
 	}
 
+	public Estado(Long id,
+			@NotEmpty(message = "CAMPO OBRIGATÓRIO: nome do estado") @Size(min = 3, max = 45) String nome) {
+		super();
+		this.id = id;
+		this.nome = nome;
+	}
+
 	public Long getId() {
 		return id;
 	}
