@@ -23,7 +23,7 @@ public class EstadoResource {
 	
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<?> findEstado(@PathVariable Long id) {
-		Estado estado = estadoService.findEstadoById(id);
+		Estado estado = estadoService.buscar(id);
 		
 		if(estado == null) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
