@@ -20,8 +20,6 @@ public class Categoria implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@NotEmpty(message = "CAMPO OBRIGATÓRIO: Nome da categoria")
-	@Size(min=3, max=45)
 	private String nome;
 	
 	@ManyToMany(mappedBy = "categorias")
