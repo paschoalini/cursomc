@@ -27,4 +27,12 @@ public class CategoriaService {
 	public Categoria salvar(Categoria categoria) {
 		return categoriaRepository.save(categoria);
 	}
+	
+	public Categoria atualizar(Categoria categoria) {
+		return categoriaRepository.save(categoria);
+	}
+	
+	public void remover(Long id) {
+		categoriaRepository.deleteById(id);
+	}
 }
