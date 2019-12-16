@@ -17,7 +17,6 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -34,7 +33,7 @@ public class Produto implements Serializable {
 
 	private Double preco;
 
-	@JsonBackReference
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "produto_categoria",
 		joinColumns = @JoinColumn(name = "produto_id"),

@@ -12,8 +12,6 @@ import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity
 public class Categoria implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -26,7 +24,6 @@ public class Categoria implements Serializable{
 	@Size(min=3, max=45)
 	private String nome;
 	
-	@JsonManagedReference
 	@ManyToMany(mappedBy = "categorias")
 	private List<Produto> produtos = new ArrayList<>();
 	
