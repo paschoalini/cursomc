@@ -22,35 +22,31 @@ import com.paschoalini.cursomc.services.CategoriaService;
 @RequestMapping("/categorias")
 public class CategoriaResource {
 	private CategoriaService categoriaService;
-	
+
 	@Autowired
 	public CategoriaResource(CategoriaService categoriaService) {
 		this.categoriaService = categoriaService;
 	}
-	
-	@GetMapping(value="/{id}")
-	public ResponseEntity<?> find(@PathVariable Long id) {	
+
+	@GetMapping(value = "/{id}")
+	public ResponseEntity<?> find(@PathVariable Long id) {
 		return new ResponseEntity<>(categoriaService.buscar(id), HttpStatus.OK);
 	}
-	
+
 	@PostMapping
 	public ResponseEntity<URI> insert(@RequestBody Categoria categoria) {
 		categoria = categoriaService.salvar(categoria);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(categoria.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(categoria.getId())
+				.toUri();
 		return new ResponseEntity<>(uri, HttpStatus.CREATED);
 	}
-	
+
 	@PutMapping
 	public ResponseEntity<Categoria> update(@RequestBody Categoria categoria) {
 		find(categoria.getId());
 		return new ResponseEntity<>(categoriaService.atualizar(categoria), HttpStatus.OK);
 	}
-	
-	@DeleteMapping
-	public void deleteCategoria(@RequestBody Categoria categoria) {
-		deleteCategoriaById(categoria.getId());
-	}
-	
+
 	@DeleteMapping(path = "/{id}")
 	public ResponseEntity<Categoria> deleteCategoriaById(@PathVariable Long id) {
 		Categoria categoria = categoriaService.buscar(id);
