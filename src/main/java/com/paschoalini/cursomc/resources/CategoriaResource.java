@@ -1,6 +1,8 @@
 package com.paschoalini.cursomc.resources;
 
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.paschoalini.cursomc.domain.Categoria;
+import com.paschoalini.cursomc.dto.CategoriaDTO;
 import com.paschoalini.cursomc.services.CategoriaService;
 
 @RestController
@@ -31,6 +34,19 @@ public class CategoriaResource {
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<?> find(@PathVariable Long id) {
 		return new ResponseEntity<>(categoriaService.buscar(id), HttpStatus.OK);
+	}
+	
+	@GetMapping
+	public ResponseEntity<List<CategoriaDTO>> findAll() {
+		List<Categoria> list = categoriaService.buscarTodos();
+		//List<CategoriaDTO> listDTO = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
+		
+		List<CategoriaDTO> listDTO = new ArrayList<>();
+		for(Categoria c : list) {
+			listDTO.add(new CategoriaDTO(c));
+		}
+		
+		return new ResponseEntity<>(listDTO, HttpStatus.OK);
 	}
 
 	@PostMapping
