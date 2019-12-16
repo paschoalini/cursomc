@@ -13,9 +13,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.paschoalini.cursomc.domain.enums.TipoCliente;
@@ -26,13 +23,8 @@ public class Cliente implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@NotEmpty(message = "CAMPO OBRIGATÓRIO: Nome do cliente")
-	@Size(min = 3, max = 45)
 	private String nome;
-	@NotEmpty(message = "CAMPO OBRIGATÓRIO: eMail do cliente")
-	@Email
 	private String email;
-	@NotEmpty(message = "CAMPO OBRIGATÓRIO: CPF/CNPJ do cliente")
 	private String cpfOuCnpj;
 	private Integer tipo;
 
@@ -56,7 +48,7 @@ public class Cliente implements Serializable {
 		this.nome = nome;
 		this.email = email;
 		this.cpfOuCnpj = cpfOuCnpj;
-		this.tipo = tipo.getCodigo();
+		this.tipo = (tipo == null ? null : tipo.getCodigo());
 	}
 
 	public Long getId() {
