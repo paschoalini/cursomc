@@ -1,5 +1,6 @@
 package com.paschoalini.cursomc.resources;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,14 +13,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.paschoalini.cursomc.domain.Cliente;
 import com.paschoalini.cursomc.dto.ClienteDTO;
+import com.paschoalini.cursomc.dto.ClienteNewDTO;
 import com.paschoalini.cursomc.services.ClienteService;
 
 @RestController
@@ -34,20 +38,20 @@ public class ClienteResource {
 	
 	@GetMapping(value="/{id}")
 	public ResponseEntity<?> find(@PathVariable Long id) {	
-		return new ResponseEntity<>(clienteService.buscar(id), HttpStatus.OK);
+		return new ResponseEntity<>(clienteService.find(id), HttpStatus.OK);
 	}
 	
 	@PutMapping(value="/{id}")
 	public ResponseEntity<Void> update(@Valid @RequestBody ClienteDTO clienteDTO, @PathVariable Long id) {
 		Cliente cliente = clienteService.fromDTO(clienteDTO);
 		cliente.setId(id);
-		cliente = clienteService.atualizar(cliente);
+		cliente = clienteService.update(cliente);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@DeleteMapping(path = "/{id}")
 	public ResponseEntity<Cliente> deleteClienteById(@PathVariable Long id) {
-		Cliente cliente = clienteService.buscar(id);
+		Cliente cliente = clienteService.find(id);
 		clienteService.remover(cliente.getId());
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
@@ -87,4 +91,14 @@ public class ClienteResource {
 		
 		return new ResponseEntity<>(listDTO, HttpStatus.OK);
 	}
+	
+	@PostMapping
+	public ResponseEntity<URI> insert(@Valid @RequestBody ClienteNewDTO objDto) {
+		Cliente obj = clienteService.fromDTO(objDto);
+		obj = clienteService.insert(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId())
+				.toUri();
+		return new ResponseEntity<>(uri, HttpStatus.CREATED);
+	}
+
 }
