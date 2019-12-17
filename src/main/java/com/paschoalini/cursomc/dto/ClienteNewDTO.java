@@ -2,20 +2,38 @@ package com.paschoalini.cursomc.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.br.CPF;
+
+import com.paschoalini.cursomc.services.validation.ClienteInsert;
+
+@ClienteInsert
 public class ClienteNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
-
+	
+	@NotEmpty(message = "CAMPO OBRIGATÓRIO: nome do cliente")
+	@Size(min = 5, max = 80)
 	private String nome;
+	
+	@NotEmpty(message = "CAMPO OBRIGATÓRIO: email do cliente")
+	@Email(message = "CAMPO OBRIGATÓRIO: email do cliente")
 	private String email;
+	
+	@NotEmpty(message = "CAMPO OBRIGATÓRIO: CPF/CNPJ do cliente")
 	private String cpfOuCnpj;
 	private Integer tipo;
 
+	@NotEmpty(message = "CAMPO OBRIGATÓRIO: logradouro do endereço do cliente")
 	private String logradouro;
 	private String numero;
 	private String complemento;
 	private String bairro;
 	private String cep;
 
+	@NotEmpty(message = "CAMPO OBRIGATÓRIO: telefone 1 do cliente")
 	private String telefone1;
 	private String telefone2;
 	private String telefone3;
