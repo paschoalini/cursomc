@@ -23,6 +23,9 @@ public class ClienteNewDTO implements Serializable {
 	@NotEmpty(message = "CAMPO OBRIGATÓRIO: CPF/CNPJ do cliente")
 	private String cpfOuCnpj;
 	private Integer tipo;
+	
+	@NotEmpty(message = "CAMPO OBRIGATÓRIO: senha do cliente")
+	private String senha;
 
 	@NotEmpty(message = "CAMPO OBRIGATÓRIO: logradouro do endereço do cliente")
 	private String logradouro;
@@ -143,5 +146,13 @@ public class ClienteNewDTO implements Serializable {
 
 	public void setCidadeId(Long cidadeId) {
 		this.cidadeId = cidadeId;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 }
